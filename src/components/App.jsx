@@ -1,10 +1,10 @@
 import React from 'react';
-import { useContacts, useFilter, useContactsDispatch, addContact, deleteContact, setFilterValue } from "../redux/contactsSlice";
+import { useContacts, useFilter, useContactsDispatch, addContact, deleteContact } from '../redux/contactsSlice';
 import ContactForm from './ContactForm';
 import ContactList from './ContactList';
 import Filter from './Filter';
 import styles from './form.module.css';
-
+import { setFilterValue } from '../redux/filterSlice';
 const App = () => {
   const contacts = useContacts();
   const filter = useFilter();
@@ -19,9 +19,9 @@ const App = () => {
   };
 
   const handleFilterChange = (filterValue) => {
-    dispatch(setFilterValue(filterValue));
+    dispatch(setFilterValue(filterValue)); 
   };
-
+  
   return (
     <div className={styles.wrap}>
       <h1>Phonebook</h1>

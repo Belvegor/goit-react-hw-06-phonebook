@@ -1,17 +1,24 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 
-const Filter = ({ filter, onFilterChange }) => (
+const Filter = ({ filter, onFilterChange }) => {
+  const handleFilterChange = (event) => {
+    onFilterChange(event.target.value);
+  };
+
+  return (
     <input
       type="text"
       placeholder="Search by name"
       value={filter}
-      onChange={(event) => onFilterChange(event.target.value)}
+      onChange={handleFilterChange}
     />
   );
-  
-  Filter.propTypes = {
-    filter: PropTypes.string.isRequired,
-    onFilterChange: PropTypes.func.isRequired,
-  };
-  
-  export default Filter;
+};
+
+Filter.propTypes = {
+  filter: PropTypes.string.isRequired,
+  onFilterChange: PropTypes.func.isRequired,
+};
+
+export default Filter;

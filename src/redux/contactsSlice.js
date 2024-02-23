@@ -1,6 +1,6 @@
-import React from 'react';
 import { configureStore, createSlice } from '@reduxjs/toolkit';
-import { useDispatch, useSelector, Provider } from 'react-redux';
+import { useDispatch, useSelector, Provider as ReactReduxProvider } from 'react-redux';
+import filterReducer from '../redux/filterSlice'
 
 // actions
 export const addContact = (contact) => ({
@@ -11,11 +11,6 @@ export const addContact = (contact) => ({
 export const deleteContact = (contactId) => ({
   type: 'contacts/deleteContact',
   payload: contactId,
-});
-
-export const setFilterValue = (filter) => ({
-  type: 'filter/setFilter',
-  payload: filter,
 });
 
 // reducers
@@ -32,20 +27,10 @@ const contactsSlice = createSlice({
   },
 });
 
-const filterSlice = createSlice({
-  name: 'filter',
-  initialState: '',
-  reducers: {
-    setFilterValue: (state, action) => {
-      return action.payload;
-    },
-  },
-});
-
 export const store = configureStore({
   reducer: {
     contacts: contactsSlice.reducer,
-    filter: filterSlice.reducer,
+    filter: filterReducer, 
   },
 });
 
@@ -62,5 +47,5 @@ export const useContactsDispatch = () => {
 };
 
 export const ContactsSlice = ({ children }) => {
-  return <Provider store={store}>{children}</Provider>;
+  return <ReactReduxProvider store={store}>{children}</ReactReduxProvider>;
 };
