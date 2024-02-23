@@ -1,26 +1,26 @@
-
-import styles from './form.module.css';
-import React, { useState } from 'react';
-import useLocalStorage from './useLocalStorage';
+import React from 'react';
+import { useContacts, useFilter, useContactsDispatch, addContact, deleteContact, setFilterValue } from "../redux/contactsSlice";
 import ContactForm from './ContactForm';
 import ContactList from './ContactList';
 import Filter from './Filter';
+import styles from './form.module.css';
 
 const App = () => {
-  const [contacts, setContacts] = useLocalStorage('contacts', []);
-  const [filter, setFilter] = useState(''); 
+  const contacts = useContacts();
+  const filter = useFilter();
+  const dispatch = useContactsDispatch();
 
   const handleAddContact = (contact) => {
-    setContacts((prevContacts) => [...prevContacts, contact]);
+    dispatch(addContact(contact));
   };
 
   const handleDeleteContact = (id) => {
-    setContacts((prevContacts) => prevContacts.filter((contact) => contact.id !==id));
-    };
+    dispatch(deleteContact(id));
+  };
 
-    const handleFilterChange = (filterValue) => {
-      setFilter(filterValue);
-    };
+  const handleFilterChange = (filterValue) => {
+    dispatch(setFilterValue(filterValue));
+  };
 
   return (
     <div className={styles.wrap}>
