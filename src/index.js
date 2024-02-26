@@ -1,16 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './components/App'; 
+import ReactDOM from 'react-dom';
+import App from './components/App';
 import './index.css';
 import { Provider } from 'react-redux';
-import { store, ContactsSlice } from './redux/contactsSlice'; 
+import store from './redux/store';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.render(
   <Provider store={store}>
-    <ContactsSlice>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </ContactsSlice>
-  </Provider>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </Provider>,
+  document.getElementById('root')
 );

@@ -1,19 +1,5 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit';
-import { useDispatch, useSelector, Provider as ReactReduxProvider } from 'react-redux';
-import filterReducer from '../redux/filterSlice'
+import { createSlice } from '@reduxjs/toolkit';
 
-// actions
-export const addContact = (contact) => ({
-  type: 'contacts/addContact',
-  payload: contact,
-});
-
-export const deleteContact = (contactId) => ({
-  type: 'contacts/deleteContact',
-  payload: contactId,
-});
-
-// reducers
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState: [],
@@ -27,25 +13,6 @@ const contactsSlice = createSlice({
   },
 });
 
-export const store = configureStore({
-  reducer: {
-    contacts: contactsSlice.reducer,
-    filter: filterReducer, 
-  },
-});
+export const { addContact, deleteContact } = contactsSlice.actions;
 
-export const useContacts = () => {
-  return useSelector((state) => state.contacts);
-};
-
-export const useFilter = () => {
-  return useSelector((state) => state.filter);
-};
-
-export const useContactsDispatch = () => {
-  return useDispatch();
-};
-
-export const ContactsSlice = ({ children }) => {
-  return <ReactReduxProvider store={store}>{children}</ReactReduxProvider>;
-};
+export default contactsSlice.reducer;
